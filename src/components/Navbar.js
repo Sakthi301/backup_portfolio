@@ -48,7 +48,7 @@ const Navbar = ({ setActiveSection }) => {
           transition={{ type: "spring", stiffness: 300 }}
         >
           <Text fontSize="lg" fontWeight="bold">
-            MyPortfolio
+            SakthiGanapathy
           </Text>
         </MotionBox>
 

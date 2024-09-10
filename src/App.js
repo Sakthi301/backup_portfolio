@@ -9,7 +9,7 @@ import Projects from './components/Projects';
 import Certification from './components/Certification';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-
+import Education from './components/Education';
 const App = () => {
   const [activeSection, setActiveSection] = useState('hero'); // State to track the active section
 
@@ -32,9 +32,13 @@ const App = () => {
         <section id="certification">
           <Certification />
         </section>
+        <section id="education">
+          <Education/>
+        </section>
         <section id="contact">
           <Contact />
         </section>
+        
       </main>
       <Footer />
     </Router>

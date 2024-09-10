@@ -1,95 +1,73 @@
+// src/components/About.js
 import React from 'react';
-import { Box, Flex, Heading, Text, useBreakpointValue, Icon, Image, HStack, Link } from '@chakra-ui/react';
-import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
-import { Element } from 'react-scroll';
+import { Flex, Heading, Text, Link, Image, useBreakpointValue, useColorMode, useColorModeValue } from '@chakra-ui/react';
 
 const About = () => {
-  // Dynamic values for image and text based on screen size
-  const imageSize = useBreakpointValue({ base: '250px', md: '300px', lg: '400px' }); // Square image
-  const textPaddingX = useBreakpointValue({ base: '4', md: '8', lg: '16' }); // Padding adjustment for text
-  const flexDirection = useBreakpointValue({ base: 'column', md: 'row' });
-  const textAlign = 'left'; // Left-align the text
+  const { colorMode } = useColorMode();
+  const imgSize = useBreakpointValue({ base: '150px', md: '200px', lg: '450px' });
+
+  // Define colors based on color mode
+  const bgColor = useColorModeValue('gray.100', 'gray.700');
+  const textColor = useColorModeValue('gray.700', 'gray.300');
+  const linkColor = useColorModeValue('teal.500', 'teal.300');
+  const headingColor = useColorModeValue('teal.500', 'teal.200');
 
   return (
-    <Element name="about">
-      <Box
-        py={{ base: 10, md: 14, lg: 20 }} // Adjust padding for different screen sizes
-        px={textPaddingX} // Responsive horizontal padding
-        minHeight="110vh" // Increased height for more content space
-        bg="gray.100"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
+    <Flex
+      id="about"
+      direction="column"
+      align="center"
+      justify="center"
+      py='100px'
+      px={8}
+      bg={bgColor}
+     
+    >
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        align="center"
+        justify="center"
+        maxW="1500px"
+        mx="auto"
+        p={5}
+        textAlign={{ base: 'center', md: 'left' }}
       >
+        <Image
+          src="./sakthi.jpg" // Replace with your photo URL
+          alt="sakthi"
+          borderRadius="full"
+          boxSize={imgSize}
+          mb={{ base: 4, md: 0 }}
+          objectFit="cover"
+        />
         <Flex
-          direction={flexDirection} // Adjust flex direction for responsiveness
-          align="center"
-          justify="space-between"
-          maxW="8xl" // Increased max width for bigger content area
-          mx="auto"
-          textAlign={textAlign} // Text alignment (left-aligned)
-          p={{ base: 4, md: 6, lg: 10 }} // Add padding for content space
-          bg="white"
-          borderRadius="lg"
-          boxShadow="lg"
+          direction="column"
+          ml={{ base: 0, md: 5 }}
+          align={{ base: 'center', md: 'flex-start' }}
         >
-          {/* Text Section */}
-          <Box
-            mb={{ base: 6, md: 0 }} // Adjust margin for spacing on mobile
-            flex="1"
-            mr={{ base: 0, lg: 20 }} // Increase right margin for larger screens
-           
-          >
-            <Heading as="h1" size="2xl" mb={4} color="black" fontFamily="'Poppins', sans-serif">
-              <Text textTransform='uppercase'>Sakthi</Text>
-              <Text pl='30px' lineHeight="1.5" textTransform='uppercase'>Ganapathy.S</Text> {/* Right spacing for Ganapathy */}
-            </Heading>
-            <Text
-              fontSize={{ base: 'md', md: 'lg', lg: 'xl' }} // Responsive font sizes
-              color="gray.600"
-              lineHeight="1.8"
-              letterSpacing="wider"
-              mb={6}
-            >
-              Hi, I'm SakthiGanapthy.S, a passionate web developer with experience in building modern and responsive web applications. I love creating intuitive and dynamic user experiences using the latest technologies.
-            </Text>
-            {/* Social Media Links */}
-            <HStack justifyContent={textAlign} spacing={6}> {/* Social links alignment */}
-              <Link href="https://www.linkedin.com" isExternal>
-                <Icon as={FaLinkedin} boxSize={7} color="teal.600" _hover={{ color: 'blue.600' }} />
-              </Link>
-              <Link href="https://www.github.com" isExternal>
-                <Icon as={FaGithub} boxSize={7} color="gray.800" _hover={{ color: 'black' }} />
-              </Link>
-              <Link href="https://www.twitter.com" isExternal>
-                <Icon as={FaTwitter} boxSize={7} color="blue.400" _hover={{ color: 'blue.600' }} />
-              </Link>
-            </HStack>
-          </Box>
-
-          {/* Profile Image */}
-          <Box
-            borderRadius="md" // Square image with slight rounding
-            overflow="hidden"
-            flexShrink={0} // Prevent shrinking of image
-            height={imageSize} // Dynamically adjust height based on screen size
-            width={imageSize} // Square image (same height and width)
-            mt={{ base: 8, md: 0 }} // Margin adjustment for mobile
-            ml={{ base: 0, md: 6, lg: 10 }} // Adjust margin-left for larger screens
-            alignSelf="center"
-          >
-            <Image
-              borderRadius="md"
-              height="100%"
-              width="100%"
-              src="./sakthi.jpg" // Your image path
-              alt="SakthiGanapthy.S"
-              objectFit="cover"
-            />
-          </Box>
+          <Heading as="h1" fontSize='70px' mb={4} color={headingColor}>
+            About Me
+          </Heading>
+          <Text fontSize="lg" mb={4} color={textColor}>
+            Hi, I'm SakthiGanapathy, a passionate web developer with a knack for creating engaging and user-friendly websites. With experience in various technologies and a love for continuous learning, I strive to build solutions that not only meet but exceed user expectations.
+          </Text>
+          <Text fontSize="md" mb={4} color={textColor}>
+            Check out some of my work and get in touch with me through the links below:
+          </Text>
+          <Flex direction={{ base: 'column', sm: 'row' }} wrap="wrap" justify="center">
+            <Link href="https://www.linkedin.com/in/yourprofile" isExternal mr={4} mb={2} fontSize="lg" color={linkColor}>
+              LinkedIn
+            </Link>
+            <Link href="https://github.com/yourprofile" isExternal mr={4} mb={2} fontSize="lg" color={linkColor}>
+              GitHub
+            </Link>
+            <Link href="mailto:your.email@example.com" isExternal mb={2} fontSize="lg" color={linkColor}>
+              Email
+            </Link>
+          </Flex>
         </Flex>
-      </Box>
-    </Element>
+      </Flex>
+    </Flex>
   );
 };
 
