@@ -26,7 +26,7 @@ const skillsData = [
       { name: 'React', icon: FaReact, color: 'teal.400', level: 50 },
       { name: 'Angular', icon: FaAngular, color: 'red.500', level: 60 },
       { name: 'Bootstrap', icon: FaBootstrap, color: 'purple.500', level: 70 },
-      { name: 'Chakra UI', icon: SiChakraui, color: 'teal.300', level: 60 },
+      { name: 'Chakra UI', icon: SiChakraui, color: 'teal.300', level: 90 },
     ],
   },
   {
@@ -74,7 +74,7 @@ const skillsData = [
 
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState('Frontend');
-  const bgColor = useColorModeValue('gray.100', 'gray.700');
+  const bgColor = useColorModeValue('gray.100', 'gray.900');
   const boxBgColor = useColorModeValue('white', 'gray.800');
   const iconColor = useColorModeValue('gray.600', 'gray.200');
 

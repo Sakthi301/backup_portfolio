@@ -1,82 +1,135 @@
-// src/components/Contact.js
-import React from 'react';
-import { Box, Flex, Heading, Text, Stack, Input, Button, useBreakpointValue } from '@chakra-ui/react';
-import { FaEnvelope, FaPhone, FaLinkedin, FaGithub } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-
-const MotionBox = motion(Box);
+import React, { useState } from 'react';
+import { Box, Flex, Heading, Input, Textarea, Button, VStack, Divider, Link, Icon, HStack, Text, useColorModeValue } from '@chakra-ui/react';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaTwitter, FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const bg = useColorModeValue('gray.100', 'gray.700');
+  const textColor = useColorModeValue('gray.700', 'gray.200');
+  const iconColor = useColorModeValue('gray.500', 'gray.300');
+  const inputBg = useColorModeValue('white', 'gray.700');
+  const dividerColor = useColorModeValue('gray.400', 'gray.600');
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.name && formData.email && formData.message) {
+      try {
+        // POST request to backend API
+        await axios.post('http://localhost:8080/api/contacts', formData);
+        toast.success('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } catch (error) {
+        toast.error('Error sending message. Please try again later.');
+      }
+    } else {
+      toast.warn('Hey! 😓 Don’t ghost us-fill in all the fields!');
+    }
+  };
 
   return (
-    <Box id="contact" py={16} px={8} bg="gray.200">
-      <Flex direction="column" align="center">
-        <MotionBox
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          textAlign="center"
-          mb={8}
-        >
-          <Heading as="h2" size="xl" mb={4} color="teal.500">
-            Contact Me
-          </Heading>
-          <Text fontSize="lg" color="gray.700" mb={8}>
-            I’d love to hear from you! Feel free to reach out to me through the following channels or use the form below:
-          </Text>
-        </MotionBox>
+    <Box py={{ base: '80px', md: '120px' }} px={{ base: 4, md: 8 }} minHeight="75vh" bg={bg}>
+      <ToastContainer />
+      <Flex justify="center" align="center" direction={{ base: 'column', md: 'row' }} w="100%">
+        {/* Left side: Contact Form */}
+        <VStack spacing={4} w={{ base: '100%', md: '45%' }} mb={{ base: 8, md: 0 }}>
+          <Heading as="h2" size="lg" textAlign="center" color={textColor}>Contact Me</Heading>
+          <Input 
+            name="name" 
+            placeholder="Name" 
+            size="md" 
+            variant="outline" 
+            isRequired 
+            bg={inputBg} 
+            value={formData.name} 
+            onChange={handleInputChange} 
+          />
+          <Input 
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            size="md" 
+            variant="outline" 
+            isRequired 
+            bg={inputBg} 
+            value={formData.email} 
+            onChange={handleInputChange} 
+          />
+          <Textarea 
+            name="message" 
+            placeholder="Message" 
+            rows={4} 
+            variant="outline" 
+            isRequired 
+            bg={inputBg} 
+            value={formData.message} 
+            onChange={handleInputChange} 
+          />
+          <Button colorScheme="teal" size="md" width="full" onClick={handleSubmit}>Send Message</Button>
+        </VStack>
 
-        <Flex
-          direction={isMobile ? 'column' : 'row'}
-          wrap="wrap"
-          justify="center"
-          align="center"
-          spacing={8}
-          mb={8}
-        >
-          <Box textAlign="center" mb={4}>
-            <FaEnvelope size={32} color="teal.500" />
-            <Text mt={2} fontSize="lg" color="gray.700">
-              Email: <a href="mailto:your.email@example.com">your.email@example.com</a>
-            </Text>
-          </Box>
-          <Box textAlign="center" mb={4}>
-            <FaPhone size={32} color="teal.500" />
-            <Text mt={2} fontSize="lg" color="gray.700">
-              Phone: <a href="tel:+123456789">+123 456 789</a>
-            </Text>
-          </Box>
-          <Box textAlign="center" mb={4}>
-            <FaLinkedin size={32} color="teal.500" />
-            <Text mt={2} fontSize="lg" color="gray.700">
-              LinkedIn: <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">yourprofile</a>
-            </Text>
-          </Box>
-          <Box textAlign="center" mb={4}>
-            <FaGithub size={32} color="teal.500" />
-            <Text mt={2} fontSize="lg" color="gray.700">
-              GitHub: <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">yourusername</a>
-            </Text>
-          </Box>
-        </Flex>
+        {/* Divider */}
+        <Divider orientation="vertical" borderColor={dividerColor} mx={6} display={{ base: 'none', md: 'block' }} />
 
-        <MotionBox
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          w={isMobile ? '100%' : '50%'}
-        >
-          <Stack spacing={4} as="form" mb={8}>
-            <Input placeholder="Name" variant="outline" />
-            <Input type="email" placeholder="Email" variant="outline" />
-            <Input placeholder="Subject" variant="outline" />
-            <Input as="textarea" placeholder="Message" variant="outline" rows={6} />
-            <Button colorScheme="teal" type="submit">
-              Send Message
-            </Button>
-          </Stack>
-        </MotionBox>
+        {/* Right side: Contact Information */}
+        <VStack spacing={4} w={{ base: '100%', md: '45%' }}>
+          <Heading as="h2" size="lg" textAlign="center" color={textColor}>My Contact</Heading>
+          <VStack align="start" spacing={2}>
+            <HStack>
+              <Icon as={FaEnvelope} boxSize={{ base: 5, md: 6 }} color={iconColor} />
+              <Text fontSize={{ base: 'sm', md: 'md' }} color={textColor}>
+                Email: <Link href="mailto:sakthiganapathy75@gmail.com" color="teal.500">sakthiganapathy75@gmail.com</Link>
+              </Text>
+            </HStack>
+            <HStack>
+              <Icon as={FaPhone} boxSize={{ base: 5, md: 6 }} color={iconColor} />
+              <Text fontSize={{ base: 'sm', md: 'md' }} color={textColor}>
+                Phone: <Link href="tel:+916382734067" color="teal.500">+91 6382734067</Link>
+              </Text>
+            </HStack>
+            <HStack>
+              <Icon as={FaMapMarkerAlt} boxSize={{ base: 5, md: 6 }} color={iconColor} />
+              <Text fontSize={{ base: 'sm', md: 'md' }} color={textColor}>
+                Address: 71, Lawspet Main Road, Bharathi Nagar, Puducherry, India
+              </Text>
+            </HStack>
+          </VStack>
+
+          <Heading as="h5" size="md" textAlign="center" mt={4} color={textColor}>Connect with Me</Heading>
+          <HStack spacing={4} mt={3} wrap="wrap" justify="center">
+            <Link href="https://www.linkedin.com/in/sakthi-ganapathy-s-675652216/" isExternal>
+              <Button variant="outline" colorScheme="linkedin" leftIcon={<FaLinkedin />}>LinkedIn</Button>
+            </Link>
+            <Link href="https://github.com/yourprofile" isExternal>
+              <Button variant="outline" colorScheme="gray" leftIcon={<FaGithub />}>GitHub</Button>
+            </Link>
+            <Link href="https://twitter.com/yourprofile" isExternal>
+              <Button variant="outline" colorScheme="twitter" leftIcon={<FaTwitter />}>Twitter</Button>
+            </Link>
+            <Link href="https://www.facebook.com/yourprofile" isExternal>
+              <Button variant="outline" colorScheme="facebook" leftIcon={<FaFacebook />}>Facebook</Button>
+            </Link>
+            <Link href="https://wa.me/916382734067" isExternal>
+              <Button variant="outline" colorScheme="whatsapp" leftIcon={<FaWhatsapp />}>WhatsApp</Button>
+            </Link>
+          </HStack>
+        </VStack>
       </Flex>
     </Box>
   );

@@ -61,14 +61,26 @@ const Navbar = ({ setActiveSection }) => {
           spacing={4}
           display={{ base: 'none', md: 'flex' }}
         >
+          <ScrollLink to="hero" smooth={true} duration={500} onClick={() => setActiveSection('hero')}>
+            <Button variant="ghost">Home</Button>
+          </ScrollLink>
           <ScrollLink to="about" smooth={true} duration={500} onClick={() => setActiveSection('about')}>
             <Button variant="ghost">About</Button>
           </ScrollLink>
           <ScrollLink to="skills" smooth={true} duration={500} onClick={() => setActiveSection('skills')}>
             <Button variant="ghost">Skills</Button>
           </ScrollLink>
+          <ScrollLink to="experience" smooth={true} duration={500} onClick={() => setActiveSection('experience')}>
+            <Button variant="ghost">Experience</Button>
+          </ScrollLink>
           <ScrollLink to="projects" smooth={true} duration={500} onClick={() => setActiveSection('projects')}>
             <Button variant="ghost">Projects</Button>
+          </ScrollLink>
+          <ScrollLink to="certification" smooth={true} duration={500} onClick={() => setActiveSection('certification')}>
+            <Button variant="ghost">Certification</Button>
+          </ScrollLink>
+          <ScrollLink to="education" smooth={true} duration={500} onClick={() => setActiveSection('education')}>
+            <Button variant="ghost">Education</Button>
           </ScrollLink>
           <ScrollLink to="contact" smooth={true} duration={500} onClick={() => setActiveSection('contact')}>
             <Button variant="ghost">Contact</Button>

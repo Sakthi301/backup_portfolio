@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Flex, Text, Tooltip, Heading } from '@chakra-ui/react';
+import { Box, Flex, Text, Tooltip, Heading, useColorModeValue } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaSchool, FaGraduationCap, FaUniversity, FaBriefcase } from 'react-icons/fa';
 
@@ -9,28 +9,28 @@ const educationData = [
     degree: 'SSLC',
     institution: 'Fatima Higher Secondary School, Puducherry, India',
     details: 'Percentage: 77',
-    icon: FaSchool // School Icon
+    icon: FaSchool
   },
   {
     year: 2019,
     degree: 'Higher Secondary',
     institution: 'Sri Ramakrishna Vidyalaya Higher Secondary School, Puducherry, India',
     details: 'Percentage: 51',
-    icon: FaGraduationCap // Graduation Cap Icon
+    icon: FaGraduationCap
   },
   {
     year: 2022,
     degree: 'Bachelor of Computer Science',
     institution: 'Achariya Arts & Science College, Puducherry, India',
     details: 'CGPA: 6.74',
-    icon: FaUniversity // University Icon
+    icon: FaUniversity
   },
   {
     year: 2024,
     degree: 'Master of Computer Application',
     institution: 'Sri Manakula Vinayagar Engineering College, Puducherry, India',
     details: 'CGPA: 8.61',
-    icon: FaBriefcase // Briefcase Icon for advanced studies or career
+    icon: FaBriefcase
   }
 ];
 
@@ -42,6 +42,16 @@ const Education = () => {
   const containerRef = useRef(null);
 
   const selectedEducation = educationData[value];
+
+  // Use Chakra UI's useColorModeValue hook to set colors based on theme
+  const bgColor = useColorModeValue('gray.100', 'gray.900');
+  const tooltipBgColor = useColorModeValue('white', 'gray.800');
+  const tooltipTextColor = useColorModeValue('gray.800', 'white');
+  const boxBgColor = useColorModeValue('yellow.400', 'yellow.600');
+  const iconColor = useColorModeValue('white', 'gray.800');
+  const sliderTrackColor = useColorModeValue('gray.300', 'gray.600');
+  const sliderThumbColor = useColorModeValue('yellow.400', 'yellow.600');
+  const yearTextColor = useColorModeValue('gray.700', 'gray.400');
 
   useEffect(() => {
     const updatePosition = () => {
@@ -71,7 +81,7 @@ const Education = () => {
   };
 
   return (
-    <Box id="education" py={10} px={8} bg="gray.100" ref={containerRef}>
+    <Box id="education" py={10} px={8} bg={bgColor} ref={containerRef}>
       <Heading as="h2" size="xl" textAlign="center" mb={8} color="teal.500">
         Education Timeline
       </Heading>
@@ -80,14 +90,14 @@ const Education = () => {
         {/* Tooltip wrapping the MotionBox */}
         <Tooltip
           label={
-            <Box p={3} bg="white" borderRadius="md" boxShadow="md">
+            <Box p={3} bg={tooltipBgColor} borderRadius="md" boxShadow="md">
               <Heading as="h4" size="sm" color="teal.500" mb={2}>
                 {selectedEducation.degree}
               </Heading>
-              <Text fontSize="sm" color="gray.600">
+              <Text fontSize="sm" color={tooltipTextColor}>
                 {selectedEducation.institution}
               </Text>
-              <Text fontSize="sm" color="gray.500">
+              <Text fontSize="sm" color={tooltipTextColor}>
                 {selectedEducation.details}
               </Text>
             </Box>
@@ -103,20 +113,19 @@ const Education = () => {
             zIndex={2}
             width={{ base: '70px', md: '90px' }} // Responsive width
             height={{ base: '70px', md: '90px' }} // Responsive height
-            bg="yellow.400"
+            bg={boxBgColor}
             borderRadius="full"
-            padding="8px" // Added padding to make the roundness less cornered
+            padding="8px"
             boxShadow="lg"
             display="flex"
             justifyContent="center"
             alignItems="center"
-            cursor="pointer" // Adds a pointer cursor to indicate it's interactive
+            cursor="pointer"
           >
-            {/* Display the icon for the current stage */}
             <Box
               as={selectedEducation.icon} // Icon from educationData
               boxSize={{ base: '40px', md: '50px' }} // Responsive icon size
-              color="white"
+              color={iconColor}
             />
           </MotionBox>
         </Tooltip>
@@ -130,13 +139,23 @@ const Education = () => {
           max={educationData.length - 1}
           value={value}
           onChange={handleSlideChange}
-          style={{ width: '100%', cursor: 'pointer', appearance: 'none' }}
+          style={{
+            width: '100%',
+            cursor: 'pointer',
+            appearance: 'none',
+            background: `linear-gradient(to right, ${sliderThumbColor} ${((value / (educationData.length - 1)) * 100)}%, ${sliderTrackColor} ${((value / (educationData.length - 1)) * 100)}%)`,
+            height: '8px',
+            borderRadius: '4px',
+            outline: 'none',
+            position: 'relative'
+          }}
         />
-
+    
+        
         {/* Milestones (Years) - Placed on the Slider */}
         <Flex justify="space-between" mt={2}>
-          {educationData.map((edu, index) => (
-            <Text key={edu.year} fontSize="sm" color="gray.700">
+          {educationData.map((edu) => (
+            <Text key={edu.year} fontSize="sm" color={yearTextColor}>
               {edu.year}
             </Text>
           ))}

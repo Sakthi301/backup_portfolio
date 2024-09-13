@@ -9,7 +9,7 @@ const About = () => {
   // Define colors based on color mode
   const bgColor = useColorModeValue('gray.100', 'gray.700');
   const textColor = useColorModeValue('gray.700', 'gray.300');
-  const linkColor = useColorModeValue('teal.500', 'teal.300');
+  const linkColor = useColorModeValue('teal.500', 'teal.300');                 
   const headingColor = useColorModeValue('teal.500', 'teal.200');
 
   return (
@@ -42,16 +42,16 @@ const About = () => {
         />
         <Flex
           direction="column"
-          ml={{ base: 0, md: 5 }}
+          ml={{ base: 0, md: 14 }}
           align={{ base: 'center', md: 'flex-start' }}
         >
           <Heading as="h1" fontSize='70px' mb={4} color={headingColor}>
             About Me
           </Heading>
-          <Text fontSize="lg" mb={4} color={textColor}>
+          <Text fontSize="xl" mb={4} color={textColor}>
             Hi, I'm SakthiGanapathy, a passionate web developer with a knack for creating engaging and user-friendly websites. With experience in various technologies and a love for continuous learning, I strive to build solutions that not only meet but exceed user expectations.
           </Text>
-          <Text fontSize="md" mb={4} color={textColor}>
+          <Text fontSize="xl" mb={4} color={textColor}>
             Check out some of my work and get in touch with me through the links below:
           </Text>
           <Flex direction={{ base: 'column', sm: 'row' }} wrap="wrap" justify="center">
