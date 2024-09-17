@@ -17,7 +17,6 @@ import { motion } from 'framer-motion';
 const MotionBox = motion(Box);
 
 const ProjectCard = ({ title, description, repoUrl, languages }) => {
-  // Adjust colors based on the theme (light or dark)
   const cardBg = useColorModeValue('gray.50', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const textColor = useColorModeValue('gray.600', 'gray.300');
@@ -30,8 +29,8 @@ const ProjectCard = ({ title, description, repoUrl, languages }) => {
       borderRadius="lg"
       overflow="hidden"
       p={6}
-      bg={cardBg} // Dynamic background color
-      borderColor={borderColor} // Dynamic border color
+      bg={cardBg}
+      borderColor={borderColor}
       boxShadow="md"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -49,7 +48,7 @@ const ProjectCard = ({ title, description, repoUrl, languages }) => {
             key={index}
             size="md"
             variant="solid"
-            bg={tagBgColor} // Dynamic tag color
+            bg={tagBgColor}
             color="white"
             mr={2}
             mb={2}
@@ -80,7 +79,6 @@ const ProjectCard = ({ title, description, repoUrl, languages }) => {
 const Projects = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  // Updated project data
   const projects = [
     {
       title: 'Enhanced Remote-Control Interface for Productivity Tools',
@@ -97,10 +95,8 @@ const Projects = () => {
       repoUrl: 'https://github.com/yourusername/lead-management-system',
       languages: ['Angular', 'SpringBoot', 'Java', 'MySQL', 'TypeScript', 'Bootstrap'],
     },
-    // Add more projects as needed
   ];
 
-  // Adjust the background color based on color mode
   const bgColor = useColorModeValue('gray.100', 'gray.900');
   const textColor = useColorModeValue('gray.700', 'gray.300');
   const headingColor = useColorModeValue('teal.600', 'teal.200');
@@ -115,7 +111,7 @@ const Projects = () => {
           textAlign="center"
           mb={8}
         >
-          <Heading as="h2" size="xl" mb={4} color={headingColor}>
+          <Heading fontSize='50px' mb={4} color={headingColor}>
             My Projects
           </Heading>
           <Text fontSize="lg" color={textColor} mb={8}>

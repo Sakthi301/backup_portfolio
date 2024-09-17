@@ -75,8 +75,9 @@ const skillsData = [
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState('Frontend');
   const bgColor = useColorModeValue('gray.100', 'gray.900');
-  const boxBgColor = useColorModeValue('white', 'gray.800');
   const iconColor = useColorModeValue('gray.600', 'gray.200');
+  const headingColor = useColorModeValue('teal.600', 'teal.200');
+  const textColor = useColorModeValue('gray.400', 'gray.400');
 
   const handleTagClick = (category) => {
     setSelectedCategory(category);
@@ -93,7 +94,7 @@ const Skills = () => {
         textAlign="center"
         mb={12}
       >
-        <Heading as="h2" size="xl" mb={4} color="teal.500">
+        <Heading fontSize='50px' mb={4} color={headingColor} fontFamily="'Poppins', sans-serif">
           My Skills
         </Heading>
       </MotionBox>
@@ -107,6 +108,7 @@ const Skills = () => {
             colorScheme="teal"
             onClick={() => handleTagClick(category.category)}
             cursor="pointer"
+            fontFamily="'Poppins', sans-serif"
           >
             <TagLabel>{category.category}</TagLabel>
           </Tag>
@@ -120,10 +122,10 @@ const Skills = () => {
         pt={16}
       >
         {selectedSkills?.skills.map((skill, index) => (
-          <GridItem key={index}>
+          <GridItem key={index} colSpan={{ base: 2, md: 1 }}>
             <VStack spacing={4} align="center">
               <Icon as={skill.icon} boxSize={12} color={skill.color} />
-              <Text fontSize="lg" fontWeight="bold" color={iconColor} textAlign="center">
+              <Text fontSize="lg" fontWeight="bold" color={iconColor} textAlign="center" fontFamily="'Poppins', sans-serif">
                 {skill.name}
               </Text>
               <Progress
@@ -133,7 +135,7 @@ const Skills = () => {
                 width="100%"
                 borderRadius="md"
               />
-              <Text fontSize="sm" color={iconColor} textAlign="center">
+              <Text fontSize="sm" color={textColor} textAlign="center" fontFamily="'Poppins', sans-serif">
                 Proficiency: {skill.level}%
               </Text>
             </VStack>
@@ -145,4 +147,3 @@ const Skills = () => {
 };
 
 export default Skills;
-  

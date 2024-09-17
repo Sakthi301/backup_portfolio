@@ -13,7 +13,6 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  Button,
   Image,
   useColorModeValue
 } from '@chakra-ui/react';
@@ -41,10 +40,7 @@ const certifications = [
     title: 'Networking Technologies',
     issuedBy: 'TCILIT',
     year: '2024',
-    imageUrls: [
-      './NT1.jpg',
-      './NT2.jpg'
-    ],
+    imageUrls: ['./NT1.jpg', './NT2.jpg'],
     description: 'Networking Technologies certification covers network concepts and configurations.'
   },
   {
@@ -79,13 +75,11 @@ const Certification = () => {
     onOpen();
   };
 
-  // Color mode values
   const bgColor = useColorModeValue('gray.100', 'gray.700');
   const cardBgColor = useColorModeValue('white', 'gray.700');
   const textColor = useColorModeValue('gray.700', 'gray.300');
-  const headingColor = useColorModeValue('teal.600', 'teal.300');
+  const headingColor = useColorModeValue('teal.600', 'teal.200');
 
-  // Settings for the slider (react-slick)
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -94,8 +88,8 @@ const Certification = () => {
     slidesToScroll: 1,
     draggable: true,
     swipe: true,
-    swipeToSlide: true, // Enable dragging to slide
-    touchThreshold: 10, // Adjust sensitivity of dragging
+    swipeToSlide: true,
+    touchThreshold: 10
   };
 
   return (
@@ -155,7 +149,6 @@ const Certification = () => {
               <ModalCloseButton />
               <ModalBody>
                 <Stack spacing={4}>
-                  {/* If it's the Networking Technologies certification, show slider */}
                   {selectedCert.title === 'Networking Technologies' && (
                     <Slider {...sliderSettings}>
                       {selectedCert.imageUrls.map((imageUrl, idx) => (
@@ -172,7 +165,6 @@ const Certification = () => {
                     </Slider>
                   )}
 
-                  {/* For other certifications, show a single image */}
                   {selectedCert.imageUrl && selectedCert.title !== 'Networking Technologies' && (
                     <Image
                       borderRadius="md"
@@ -183,7 +175,7 @@ const Certification = () => {
                       objectFit="cover"
                     />
                   )}
-                  
+
                   <Text fontSize="lg" color={textColor}>
                     <strong>Issued By:</strong> {selectedCert.issuedBy}
                   </Text>

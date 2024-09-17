@@ -9,7 +9,7 @@ const Hero = () => {
   // Responsive headline and subheading sizes
   const headlineSize = useBreakpointValue({ base: '4xl', md: '6xl', lg: '8xl' });
   const subheadingSize = useBreakpointValue({ base: '2xl', md: '3xl', lg: '5xl' });
-  const descriptionSize = useBreakpointValue({ base: 'lg', md: 'xl', lg: '2xl' });
+  const descriptionSize = useBreakpointValue({ base: 'lg', md: 'xl', lg: 'md' });
 
   // Responsive image size
   const imageSize = useBreakpointValue({ base: '250px', md: '350px', lg: '400px' });
@@ -18,6 +18,8 @@ const Hero = () => {
   const bgColor = useColorModeValue('gray.100', 'gray.900');
   const buttonTextColor = useColorModeValue('white', 'gray.900');
 
+  // CV URL (Replace with your actual CV URL)
+  const cvUrl = './Resume.pdf'; // Update with the actual URL to your CV
 
   return (
     <Box
@@ -78,14 +80,17 @@ const Hero = () => {
           <Text
             fontSize={descriptionSize} // Bigger description text
             color="gray.400"
-            maxW="lg"
-            mb={8} // More spacing below
+            maxW="xl"
+            mb={8} 
+            mt={-9}
+           // More spacing below
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
+            Passionate about building dynamic web applications and solving real-world problems through code.
           </Text>
 
           <Box display="flex" gap={6} flexDirection={{ base: 'column', md: 'row' }} alignItems="center">
             <Button
+              
               bg="purple.500"
               color={buttonTextColor}
               _hover={{ bg: 'purple.600' }}
@@ -96,6 +101,9 @@ const Hero = () => {
               Hire Me
             </Button>
             <Button
+              as="a"
+              href={cvUrl} // Link to CV
+              download // Prompt download
               variant="outline"
               borderColor="gray.200"
               color="gray.200"
@@ -113,7 +121,6 @@ const Hero = () => {
         <Box
           mt={{ base: 8, md: 0 }}
           ml={{ md: 16 }} // Margin for larger screens
-       
         >
           <Image
             src="/home.jpg" // Replace with your actual image path
